@@ -1,0 +1,82 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Variables Launch (console)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "VariablesBuild",
+            "program": "${workspaceFolder}/Variables/bin/Debug/net8.0/Variables.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}",
+            "stopAtEntry": false,
+            "console": "internalConsole"
+        },
+        {
+            "name": "Numbers Launch (console)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "NumbersBuild",
+            "program": "${workspaceFolder}/Numbers/bin/Debug/net8.0/Numbers.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}",
+            "stopAtEntry": false,
+            "console": "internalConsole"
+        },
+        {
+            "name": "Emojis Launch (console)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "EmojisBuild",
+            "program": "${workspaceFolder}/Emojis/bin/Debug/net8.0/Emojis.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}",
+            "stopAtEntry": false,
+            "console": "internalConsole"
+        },
+        {
+            "name": "Vocabulary Launch (console)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "VocabularyBuild",
+            "program": "${workspaceFolder}/Vocabulary/bin/Debug/net8.0/Vocabulary.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}",
+            "stopAtEntry": false,
+            "console": "internalConsole"
+        },
+        {
+            "name": "Arguments Launch (console)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "ArgumentsBuild",
+            "program": "${workspaceFolder}/Arguments/bin/Debug/net8.0/Arguments.dll",
+            "args": [
+                "red",
+                "yellow",
+                "52"
+            ],
+            "cwd": "${workspaceFolder}",
+            "stopAtEntry": false,
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "AsyncConsole Launch (console)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "AsyncConsoleBuild",
+            "program": "${workspaceFolder}/AsyncConsole/bin/Debug/net8.0/AsyncConsole.dll",
+            "args": [
+                "red",
+                "yellow",
+                "52"
+            ],
+            "cwd": "${workspaceFolder}",
+            "stopAtEntry": false,
+            "console": "internalConsole"
+        }
+    ]
+}
