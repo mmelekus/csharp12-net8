@@ -1,4 +1,5 @@
-﻿using Packt.Shared; // To use Person.
+﻿using System.Runtime.CompilerServices;
+using Packt.Shared; // To use Person.
 using Fruit = (string Name, int Number); // Aliasing a tuple type.
 
 ConfigureConsole(); // Sets current culture to US English.
@@ -206,3 +207,82 @@ WriteLine($"Sam's second child is {sam[1].Name}.");
 // Get using the string indexer.
 WriteLine($"Sam's child named Ella is {sam["Ella"].Age} years old.");
 WriteLine($"Sam's child named Jeffrey is {sam["Jeffrey"].Age} years old.");
+
+// Object pattern matching
+// An array containing a mix of passenger types.
+Passenger[] passengers = {
+    new FirstClassPassenger { AirMiles = 1_419, Name = "Suman" },
+    new FirstClassPassenger { AirMiles = 16_562, Name = "Lucy" },
+    new BusinessClassPassenger { Name = "Janice" },
+    new CoachClassPassenger { CarryOnKG = 25.7, Name = "Dave" },
+    new CoachClassPassenger { CarryOnKG = 0, Name = "Amit" }
+};
+
+foreach (Passenger passenger in passengers)
+{
+    decimal flightCost = passenger switch
+    {
+        // // C# 8 syntax
+        // FirstClassPassenger p when p.AirMiles > 35_000 => 1_500M,
+        // FirstClassPassenger p when p.AirMiles > 15_000 => 1_750M,
+        // FirstClassPassenger _                          => 2_000M,
+        // // C# 9 or later syntax
+        // FirstClassPassenger p => p.AirMiles switch
+        // {
+        //     > 35_000 => 1_500M,
+        //     > 15_000 => 1_750M,
+        //     _        => 2_000M
+        // },
+        // Relational pattern in combination with the property pattern to avoid the nested switch statement.
+        FirstClassPassenger { AirMiles: > 35_000 }    => 1_500M,
+        FirstClassPassenger { AirMiles: > 15_000 }    => 1_750M,
+        FirstClassPassenger                           => 2_000M,
+        BusinessClassPassenger _                      => 1_000M,
+        CoachClassPassenger p when p.CarryOnKG < 10.0 => 500M,
+        CoachClassPassenger _                         => 650M,
+        _                                             => 800M
+    };
+    WriteLine($"Flight costs {flightCost:C} for {passenger}");
+}
+
+// Init-only properties
+ImmutablePerson jeff = new()
+{
+    FirstName = "Jeff",
+    LastName = "Winger"
+};
+// Not allowed...
+// jeff.FirstName = "Geoff";
+
+// Records
+ImmutableVehicle car = new()
+{
+    Brand = "Mazda MX-5 RF",
+    Color = "Soul Red Crystal Metallic",
+    Wheels = 4
+};
+ImmutableVehicle repaintedCar = car with { Color = "Polymetal Grey Metallic" }; // Copy of car with Color property set to new value.
+WriteLine($"Original car color was {car.Color}.");
+WriteLine($"New car color is {repaintedCar.Color}.");
+
+// Equality behavior differences between classes and records
+AnimalClass ac1 = new() { Name = "Rex" };
+AnimalClass ac2 = new() { Name = "Rex" };
+WriteLine($"ac1 == ac2: {ac1 == ac2}");
+AnimalRecord ar1 = new() { Name = "Rex" };
+AnimalRecord ar2 = new() { Name = "Rex" };
+WriteLine($"ar1 == ar2: {ar1 == ar2}");
+
+// Record defined with positional data members
+ImmutableAnimal oscar = new("Oscar", "Labrador");
+var (who, what) = oscar; // Calls the Deconstruct method
+WriteLine($"{who} is a {what}.");
+
+// Class created with a primary constructor
+Headset vp = new("Apple", "Vision Pro");
+WriteLine($"{vp.ProductName} is made by {vp.Manufacturer}.");
+// Create uninitialized instance of class with a primary constructor
+Headset holo = new();
+WriteLine($"{holo.ProductName} is made by {holo.Manufacturer}.");
+Headset mq = new() { Manufacturer = "Meta", ProductName = "Quest 3"};
+WriteLine($"{mq.ProductName} is made by {mq.Manufacturer}.");
