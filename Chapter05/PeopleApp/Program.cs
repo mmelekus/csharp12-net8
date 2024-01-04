@@ -1,4 +1,5 @@
 ﻿using Packt.Shared; // To use Person.
+using Fruit = (string Name, int Number); // Aliasing a tuple type.
 
 ConfigureConsole(); // Sets current culture to US English.
 // Alternatives:
@@ -69,11 +70,18 @@ WriteLine(format: "{0} earned {1:C} interest.",
     arg0: gerrierAccount.AccountName,
     arg1: gerrierAccount.Balance * BankAccount.InterestRate);
 
-// Required fields
+/*
+// Required fields -- Instantiate a book using initializer syntax.
 Book book = new()
 {
     Isbn = "978-1803237800",
     Title = "C# 12 and .NET 8 - Modern Cross-Platform Development Fundamentals"
+};
+*/
+Book book = new(isbn: "978-1803237800", title: "C# 12 and .NET 8 - Modern Cross-Platform Development Fundamentals")
+{
+    Author = "Mark J. Price",
+    PageCount = 821
 };
 WriteLine($"{book.Isbn}: {book.Title} written by {book.Author} has {book.PageCount:N0} pages.");
 
@@ -87,3 +95,111 @@ WriteLine(format: "{0} of {1} was created at {2:hh:mm:ss} on a {2:dddd}.",
     arg0: gunny.Name,
     arg1: gunny.HomePlanet,
     arg2: gunny.Instantiated);
+
+// Calling methods on classes
+bob.WriteToConsole();
+WriteLine(bob.GetOrigin());
+
+// Defining and passing parameters to methods
+WriteLine(bob.SayHello());
+WriteLine(bob.SayHello("Emily"));
+
+//Optional parameters
+WriteLine(bob.OptionalParameters(3));
+WriteLine(bob.OptionalParameters(3, "Jump!", 98.5));
+WriteLine(bob.OptionalParameters(3, number: 52.7, command: "Hide!"));
+WriteLine(bob.OptionalParameters(3, "Poke!", active: false));
+WriteLine(bob.OptionalParameters(number: 52.7, command: "Hide!", count: 3));
+
+// Passing parameters
+int a = 10;
+int b = 20;
+int c = 30;
+int d = 40;
+WriteLine($"Before: a={a}, b={b}, c={c}, d={d}");
+bob.PassingParameters(a, b, ref c, out d); // val, in, ref, out
+WriteLine($"After: a={a}, b={b}, c={c}, d={d}");
+
+// Passing parameters: Simplified C# 7 or later syntax for the out parameter.
+int e = 50;
+int f = 60;
+int g = 70;
+WriteLine($"Before: e={e}, f={f}, g={g}, h doesn't exist yet!");
+bob.PassingParameters(e, f, ref g, out int h);
+WriteLine($"After: e={e}, f={f}, g={g}, h={h}");
+
+// Tuples
+(string, int) fruit = bob.GetFruit();
+WriteLine($"{fruit.Item1}, {fruit.Item2} there are.");
+
+// Without an aliased tuple type.
+// var fruitNamed = bob.GetNamedFruit();
+// With an aliased tuple type.
+Fruit fruitNamed = bob.GetNamedFruit();
+WriteLine($"There are {fruitNamed.Number} {fruitNamed.Name}.");
+
+var thing1 = ("Neville", 4);
+WriteLine($"{thing1.Item1} has {thing1.Item2} children.");
+var thing2 = (bob.Name, bob.Children.Count); // Name inference as of C# 7.1
+WriteLine($"{thing2.Name} has {thing2.Count} children.");
+
+// Store return value in a tuple variable with two named fields.
+(string name, int number) namedFields = bob.GetNamedFruit();
+// You can then access the named fields.
+WriteLine($"{namedFields.name}, {namedFields.number}");
+// Deconstruct the return value into two separate variables.
+(string fruitName, int fruitNumber) = bob.GetFruit();
+// You can then access the separate variables.
+WriteLine($"Deconstructed tuple: {fruitName}, {fruitNumber}");
+
+var (name1, dob1) = bob; // Implicitly call the Deconstruct method.
+WriteLine($"Deconstructed person: {name1}, {dob1}");
+var (name2, dob2, fav2) = bob;
+WriteLine($"Deconstructed person: {name2}, {dob2}, {fav2}");
+
+// Change to -1 to make the exception handling code execute.
+int number = 5;
+try
+{
+    WriteLine($"{number}! is {Person.Factorial(number)}");
+}
+catch(Exception ex)
+{
+    WriteLine($"{ex.GetType()} says: {ex.Message} number was {number}.");
+}
+
+// Using properties
+Person sam = new()
+{
+    Name = "Sam",
+    Born = new(1969, 6, 25, 0, 0, 0, TimeSpan.Zero)
+};
+WriteLine(sam.Origin);
+WriteLine(sam.Greeting);
+WriteLine(sam.Age);
+sam.FavoriteIceCream = "Chocolate Fudge";
+WriteLine($"Sam's favorite ice-cream flavor is {sam.FavoriteIceCream}.");
+string color = "Red";
+try
+{
+    sam.FavoritePrimaryColor = color;
+    WriteLine($"Sam's favorite primary color is {sam.FavoritePrimaryColor}.");
+}
+catch (Exception ex)
+{
+    WriteLine("Tried to set {0} to '{1}': {2}", arg0: nameof(sam.FavoritePrimaryColor), color, ex.Message);
+}
+
+bob.FavoriteAncientWonder = WondersOfTheAncientWorld.GreatPyramidOfGiza;
+
+// Indexers
+sam.Children.Add(new() { Name = "Charlie", Born = new(2010, 3, 18, 0, 0, 0, TimeSpan.Zero) });
+sam.Children.Add(new() { Name = "Ella", Born = new(2020, 12, 24, 0, 0, 0, TimeSpan.Zero) });
+// Get using Children list.
+WriteLine($"Sam's first child is {sam.Children[0].Name}.");
+WriteLine($"Sam's second child is {sam.Children[1].Name}.");
+// Get using the int indexer.
+WriteLine($"Sam's fist child is {sam[0].Name}.");
+WriteLine($"Sam's second child is {sam[1].Name}.");
+// Get using the string indexer.
+WriteLine($"Sam's child named Ella is {sam["Ella"].Age} years old.");
