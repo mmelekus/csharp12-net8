@@ -67,8 +67,8 @@ public partial class Person
     #region Indexers: Properties that use array syntax to access them.
     public Person this[int index]
     {
-        get { return Children[index]; } // Pass on to the List<T> indexer.
-        set { Children[index] = value; }
+        get => Children[index];  // Pass on to the List<T> indexer.
+        set => Children[index] = value;
     }
 
     // A read-only string indexer.
