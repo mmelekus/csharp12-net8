@@ -1,6 +1,4 @@
-﻿using System.Security.Cryptography;
-
-namespace Packt.Shared;
+﻿namespace Packt.Shared;
 
 public class Person
 {
