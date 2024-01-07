@@ -44,3 +44,13 @@ lookupIntString.Add(key: 3, value: "Gamma");
 lookupIntString.Add(key: 4, value: "Delta");
 var key = 3;
 WriteLine(format: "Key {0} has value: {1}", arg0: key, arg1: lookupIntString[key]);
+
+// Event handlers
+// Assign the method to the Shout delegate.
+harry.Shout += Harry_Shout;
+harry.Shout += Harry_Shout_2;
+// Call the Poke method that eventually raises the shout event.
+harry.Poke();
+harry.Poke();
+harry.Poke();
+harry.Poke();

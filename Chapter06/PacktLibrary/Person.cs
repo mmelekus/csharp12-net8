@@ -83,4 +83,20 @@ public class Person
     // Define the * operator to "multiply".
     public static Person operator *(Person p1, Person p2) => Procreate(p1, p2); // Return a reference to the baby that results from multiply.
 #endregion Operators
+
+#region Events
+    // Delegate field to define the event.
+    public event EventHandler? Shout; // null initially.
+    // Data field related to the event.
+    public int AngerLevel;
+    // Method to trigger the event in cetain conditions.
+    public void Poke()
+    {
+        AngerLevel++;
+        if (AngerLevel < 3) { return; }
+
+        // If something is listening to the event...
+        if (Shout is not null) { Shout(this, EventArgs.Empty); } // ...then call the delegate to "raise" the event.
+    }
+#endregion Events
 }
