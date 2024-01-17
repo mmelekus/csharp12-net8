@@ -1,4 +1,6 @@
 ﻿using System.Numerics; // To use BigInteger
+using System.Globalization;
+using System.Text.Encodings.Web; // to use CultureInfo.
 
 // Very large numbers (BigInteger)
 const int width = 40;
@@ -64,3 +66,13 @@ string cities = "Paris,Tehran,Chennai,Sydney,New York,Medellin";
 string[] citiesArray = cities.Split(',');
 WriteLine($"There are {citiesArray.Length} items in the array:");
 foreach (var item in citiesArray) { WriteLine($"  {item}"); }
+WriteLine();
+
+OutputEncoding = System.Text.Encoding.UTF8;  // Enable Euro symbol.
+CultureInfo.CurrentCulture = CultureInfo.GetCultureInfo("en-US");
+string text1 = "Mark";
+string text2 = "MARK";
+WriteLine($"text1: {text1}, text2: {text2}");
+WriteLine("Compare: {0}.", string.Compare(text1, text2));
+WriteLine("Compare (ignoreCase): {0}.", string.Compare(text1, text2, ignoreCase: true));
+WriteLine("Compare (InvariantCultureIgnoreCase): {0}.", string.Compare(text1, text2, StringComparison.InvariantCultureIgnoreCase));
