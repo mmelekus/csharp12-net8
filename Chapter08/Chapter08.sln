@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkingWithNumbers", "Worki
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkingWithRegularExpressions", "WorkingWithRegularExpressions\WorkingWithRegularExpressions.csproj", "{6BB14784-F681-4697-8B46-E473463DA61E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkingWithCollections", "WorkingWithCollections\WorkingWithCollections.csproj", "{79DDBD4D-E6EE-43EB-9ED6-BF771CC35692}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{6BB14784-F681-4697-8B46-E473463DA61E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6BB14784-F681-4697-8B46-E473463DA61E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6BB14784-F681-4697-8B46-E473463DA61E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{79DDBD4D-E6EE-43EB-9ED6-BF771CC35692}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79DDBD4D-E6EE-43EB-9ED6-BF771CC35692}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79DDBD4D-E6EE-43EB-9ED6-BF771CC35692}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79DDBD4D-E6EE-43EB-9ED6-BF771CC35692}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
