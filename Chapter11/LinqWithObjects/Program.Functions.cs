@@ -24,4 +24,29 @@ partial class Program
             // On the second itteration "Jimmy does not end with an "m" so it doesn't get output.
         }
     }
+
+    private static void FilteringUsingWhere(string[] names)
+    {
+        SectionTitle("Filtering Entities Using Where");
+
+        // Function delegate call
+        // var query = names.Where(NameLongerThanFour);
+
+        // Using a lambda expression instead of a named method.
+        var query = names
+            // Default parameter in lambda expression -- C# 12
+            .Where((string name = "Bob") => name.Length > 4)
+            .OrderBy(name => name.Length)
+            .ThenBy(name => name);
+        foreach (string item in query)
+        {
+            WriteLine(item);
+        }
+    }
+
+    static bool NameLongerThanFour(string name)
+    {
+        // Returns true for a name longer than four characters.
+        return name.Length > 4;
+    }
 }
