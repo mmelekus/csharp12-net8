@@ -49,4 +49,26 @@ partial class Program
         // Returns true for a name longer than four characters.
         return name.Length > 4;
     }
+
+    static void FilteringByType()
+    {
+        SectionTitle("Filtering by Type");
+        List<Exception> excpetions =
+        [
+            new ArgumentException(),
+            new SystemException(),
+            new IndexOutOfRangeException(),
+            new InvalidOperationException(),
+            new NullReferenceException(),
+            new InvalidCastException(),
+            new OverflowException(),
+            new DivideByZeroException(),
+            new ApplicationException()
+        ];
+        IEnumerable<ArithmeticException> arithmeticExceptionsQuery = excpetions.OfType<ArithmeticException>();
+        foreach (ArithmeticException exception in arithmeticExceptionsQuery)
+        {
+            WriteLine(exception);
+        }
+    }
 }
